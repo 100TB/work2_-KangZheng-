@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.ArticleMapper">
+
+    <resultMap id="articleId" type="com.example.model.Article">
+     <result property="id" column="articleId"/>
+        <result column="created" property="created"/>
+           <result property="title"  column="title"/>
+           <result property="content" column="content"/>
+            <result property="lastReply" column="lastReply"/>
+         <result property="allReply" column="allReply"/>
+        <association property="user" javaType="com.example.model.User">
+              <id column="id" property="id"/>
+              <result property="phone" column="phone"/>
+        </association>
+        <collection property="comments" ofType="com.example.model.Comment" column="articleId">
+            <id property="commentId" column="commentId" jdbcType="INTEGER" javaType="int"/>
+            <result property="content" column="content" jdbcType="VARCHAR" javaType="string"/>
+        </collection>
+    </resultMap>
+      <select id="listArticle" resultMap="articleId">
+          select a.articleId,a.title,a.content,a.created,u.phone,a.lastReply,a.allReply
+               from article a,user u
+               order by a.lastReply,a.created
+     </select>
+    <select id="getArticle" resultMap="articleId" parameterType="int">
+        select *
+        FROM  user u,article a
+        WHERE  a.articleId=#{id}  AND  u.id=a.userId
+</select>
+    <select id="getArticleById" resultMap="articleId" parameterType="int">
+        select * from article where articleId=#{id}
+    </select>
+    <update id="edit" parameterType="com.example.model.Article">
+        update article set title=#{title},content=#{content},created=#{created} where ArticleId=#{id}
+   </update>
+    <delete id="delete" parameterType="int">
+        delete from article where articleId=#{id}
+    </delete>
+</mapper>

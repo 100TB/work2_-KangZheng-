@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.UserMapper">
+    <select id="findUserByName" resultType="com.example.model.User" parameterType="com.example.model.User" >
+                     select * from user where phone=#{phone}
+     </select>
+    <select id="getTime" resultType="com.example.model.User" parameterType="com.example.model.User" >
+        select * from user where phone=#{phone}
+    </select>
+    <update id="updateUser" parameterType="com.example.model.User">
+        update user set worryLogin=#{worryLogin},loginTime=#{loginTime} where id=#{id}
+    </update>
+    <update id="updateLogin" >
+        update user set worryLogin=0
+    </update>
+    <insert id="insert" parameterType="com.example.model.User">
+        insert into user(phone,password,loginTime) values(#{phone},#{password},#{loginTime})
+    </insert>
+    <update id="updateTime"  parameterType="com.example.model.User">
+        update user set codeTime=#{codeTime} where phone=#{phone}
+    </update>
+
+</mapper>

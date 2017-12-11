@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <label th:text="${article.title}"></label>
+    </div>
+    <div class="panel-body">
+       <label th:text="${article.content}"></label>
+    </div>
+</div>
+<div class="panel panel-default" th:each="comment:${article.comments}">
+    <div class="panel-heading">
+        <label th:text="${comment.user.phone}+'回复说'"></label>
+    </div>
+    <div class="panel-body">
+        <label th:text="${comment.content}"></label>
+    </div>
+</div>
+
+<div>
+    <form action="/hello3" method="post">
+        <input type="text" name="content">
+        <input th:value="${article.id}" name="id" type="hidden">
+        <input  type="hidden" value="2" name="userId">
+        <input type="submit" value="提交">
+    </form>
+
+
+</div>
+
+
+</body>
+</html>
