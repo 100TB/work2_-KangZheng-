@@ -24,6 +24,9 @@
                from article a,user u
                order by a.lastReply,a.created
      </select>
+    <insert id="addArticle" parameterType="com.example.model.Article">
+        insert into article(title,content,created,userId) VALUES(#{title},#{content},now(),#{user.id})
+    </insert>
     <select id="getArticle" resultMap="articleId" parameterType="int">
         select *
         FROM  user u,article a
@@ -38,4 +41,12 @@
     <delete id="delete" parameterType="int">
         delete from article where articleId=#{id}
     </delete>
+    <select id="getListByid" resultMap="articleId" parameterType="int">
+        select * from article where articleId=#{id}
+    </select>
+    <update id="updateComment" parameterType="int">
+update article SET allReply=(select allReply+1
+where articleId=#{id}),lastReply=now()
+WHERE  articleId=#{id};
+    </update>
 </mapper>

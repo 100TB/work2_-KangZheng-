@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.dao.UserMapper">
-    <select id="findUserByName" resultType="com.example.model.User" parameterType="com.example.model.User" >
-                     select * from user where phone=#{phone}
+    <resultMap id="userId" type="com.example.model.User">
+        <result column="id" property="id"/>
+        <result property="phone" column="phone"/>
+        <association property="role" javaType="com.example.model.Role">
+            <id column="id" property="id"/>
+            <result property="roleName" column="roleName"/>
+        </association>
+
+    </resultMap>
+    <select id="findUserById" resultType="com.example.model.User" parameterType="com.example.model.User" >
+                     select * from user where id=#{id}
      </select>
-    <select id="getTime" resultType="com.example.model.User" parameterType="com.example.model.User" >
+    <select id="findUserByName" resultType="com.example.model.User" parameterType="com.example.model.User" >
         select * from user where phone=#{phone}
     </select>
     <update id="updateUser" parameterType="com.example.model.User">
@@ -20,5 +29,10 @@
     <update id="updateTime"  parameterType="com.example.model.User">
         update user set codeTime=#{codeTime} where phone=#{phone}
     </update>
+    <select id="listUser" resultMap="userId">
+        select u.id,u.phone,r.roleName,r.id
+        from user u,role r
+        WHERE u.roleId=r.id
+    </select>
 
 </mapper>

@@ -8,14 +8,20 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<script type="text/javascript">
+
+    function  del() {
+        alert("删除成功")
+    }
+</script>
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
             <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#">首页</a>
-                </li>
                 <li>
+                    <a th:href="@{/hello1}">首页</a>
+                </li >
+                <li  class="active">
                     <a th:href="@{/article/list}">我的主页</a>
                 </li>
                 <li class="dropdown pull-right">
@@ -48,41 +54,33 @@
                 <thead>
                 <tr>
                     <th>
-                        标题
+                       标题
                     </th>
                     <th>
-                       作者
+                        内容
                     </th>
                     <th>
-                        发表时间
+                        操作1
                     </th>
                     <th>
-                       评论数
-                    </th>
-                    <th>
-                        最后评论时间
+                        操作2
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="success" th:each="article:${list}">
-                    <td>
-                       <a th:href="@{/hello2/}+${article.id}" th:text="${article.title}"></a>
-                    </td>
-                    <td th:text="${article.user.phone}">
-                        TB - Monthly
-                    </td>
-                    <td th:text="${#dates.format(article.created,'yyyy-MM-dd HH:mm:ss')}">
-                    </td>
-                    <td th:text="${article.allReply}">
-                    </td>
-                    <td th:text="${#dates.format(article.lastReply,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <tr th:each="article:${article}" class="success">
+                    <td th:text="${article.title}"><</td>
+                    <td th:text="${#dates.format(article.created, 'yyyy-MM-dd')}">ffffff</td>
+                    <td><a th:href="@{/article/edit/}+${article.id}"  />编辑</td>
+                    <td><a onclick="del()" th:href="@{/article/delete/}+${article.id}" />删除</td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<a class="btn" th:href="@{/article/add}">新建</a>
+
 </body>
 </html>

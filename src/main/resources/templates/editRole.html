@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form action="/admin/edit"  method="post">
+        <p th:text="'你正在为'+${user.phone}+'用户更改角色'"></p>
+        <div th:each="role:${role}">
+            <input type="radio" th:value="${role.id}" name="roleId"/>
+            <label th:text="${role.roleName}"></label>
+        </div>
+
+    </form>
+</body>
+</html>

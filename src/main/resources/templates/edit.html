@@ -7,25 +7,18 @@
 </head>
 <body>
 <script type="text/javascript">
-  function del(){
-
-      alert("删除成功")
-      window.location.href="/message/delete/"+$("#name").val();
-
-  }
-
 </script>
-<form th:action="@{/message/update}" method="post">
-    <input type="hidden" name="id" th:value="${message.id}" id="name">
-    <p th:text="${#dates.format(message.createDate, 'yyyy-MM-dd')}"></p>
+<form th:action="@{/article/update}" method="post">
+    <input type="hidden" name="id" th:value="${article.id}" id="id">
+    <p th:text="${#dates.format(article.created, 'yyyy-MM-dd')}"></p>
 
-    <input type="text" th:value="${message.title}" name="title">
+    <input type="text" th:value="${article.title}" name="title">
 <br>
 
-<textarea th:text="${message.information}" name="information"></textarea>
+<textarea th:text="${article.content}" name="content"></textarea>
     <br>
 
-    <button id="buttonId" type="button" onclick="del()">删除</button>
+    <button id="buttonId" type="button" onclick="javascript:history.back(-1);">返回</button>
     <input type="submit" value="保存">
 
     </form>

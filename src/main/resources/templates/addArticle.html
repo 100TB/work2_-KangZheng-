@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+      <form action="/article/addArticle" method="post">
+          <label>标题</label><input type="text" name="title">
+          <label>内容</label><input type="text" name="content">
+          <input type="hidden" th:value="${session.loginInfo.id}" name="user.id">
+          <input type="submit" value="提交">
+      </form>
+</body>
+</html>

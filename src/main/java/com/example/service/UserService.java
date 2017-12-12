@@ -1,19 +1,13 @@
-package com.example.dao;
-
+package com.example.service;
 
 import com.example.model.User;
-import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.type.JdbcType;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * Created by Kang.Zheng on 2017/11/27.
+ * Created by Kang.Zheng on 2017/12/12.
  */
-
-public interface UserMapper {
-
+public interface UserService {
     User findUserByName(User user);
     User findUserById(User user);
     public  void  insert(User user);

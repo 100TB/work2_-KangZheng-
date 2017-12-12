@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kang.Zheng on 2017/12/11.
@@ -57,6 +59,7 @@ public class HelloController {
         comment.setUser(user);
         comment.setContent(content);
         commentService.addComment(comment);
+        articleService.updateComment(id);
         System.out.println("测试");
         return  "forward:/hello2/"+id;
     }

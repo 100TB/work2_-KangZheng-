@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
  */
 @Controller
 //@RequestMapping("/login")
-public class Login {
+public class LoginController {
     @Autowired
     private UserMapper userMapper;
 
@@ -30,7 +31,7 @@ public class Login {
         return  "register";
     }
     @RequestMapping("/login")
-    public  String  login(User user,Model model){
+    public  String  login(User user, Model model, HttpServletRequest request){
 
         System.out.println(user.getPhone());
         User user1=userMapper.findUserByName(user);
@@ -57,7 +58,8 @@ public class Login {
             user1.setWorryLogin(0);
             userMapper.updateUser(user1);
             //dddd
-            return "login";
+            request.getSession().setAttribute("loginInfo",user1);
+            return "listArticle";
         }else{
             user1.setWorryLogin(user1.getWorryLogin()+1);
             userMapper.updateUser(user1);
