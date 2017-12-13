@@ -6,16 +6,19 @@
         <result column="id" property="id"/>
         <result property="phone" column="phone"/>
         <association property="role" javaType="com.example.model.Role">
-            <id column="id" property="id"/>
+            <id column="roleId" property="id"/>
             <result property="roleName" column="roleName"/>
         </association>
 
     </resultMap>
     <select id="findUserById" resultType="com.example.model.User" parameterType="com.example.model.User" >
-                     select * from user where id=#{id}
+             select * from user where id=#{id}
      </select>
     <select id="findUserByName" resultType="com.example.model.User" parameterType="com.example.model.User" >
-        select * from user where phone=#{phone}
+
+         select *
+                  from  user
+                   where phone=#{phone}
     </select>
     <update id="updateUser" parameterType="com.example.model.User">
         update user set worryLogin=#{worryLogin},loginTime=#{loginTime} where id=#{id}
@@ -30,9 +33,11 @@
         update user set codeTime=#{codeTime} where phone=#{phone}
     </update>
     <select id="listUser" resultMap="userId">
-        select u.id,u.phone,r.roleName,r.id
+        select u.id,u.phone,r.roleName,r.roleId
         from user u,role r
-        WHERE u.roleId=r.id
+        WHERE u.roleId=r.roleId
     </select>
-
+    <update id="editRole"  parameterType="map">
+        update user set roleId=#{roleId} WHERE id=#{userId}
+    </update>
 </mapper>

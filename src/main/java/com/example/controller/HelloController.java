@@ -40,15 +40,10 @@ public class HelloController {
         System.out.println(id);
         Article article=articleService.getArticleAndComments(id);
         model.addAttribute("article",article);
-        for (Comment c:article.getComments()
-             ) {
-            System.out.println(c.getContent());
-        }
         return  "article";
     }
     @RequestMapping("/hello3")
     public String hello3(Model model, String content,int id,int userId){
-        System.out.println(id);
         Article article=new Article();
         article.setId(id);
         User user=new User();
@@ -60,7 +55,6 @@ public class HelloController {
         comment.setContent(content);
         commentService.addComment(comment);
         articleService.updateComment(id);
-        System.out.println("测试");
         return  "forward:/hello2/"+id;
     }
 

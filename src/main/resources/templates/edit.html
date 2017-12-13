@@ -3,16 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <script type="text/javascript">
 </script>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            <ul class="nav nav-tabs">
+                <li>
+                    <a th:href="@{/hello1}">首页</a>
+                </li >
+                <li  class="active">
+                    <a th:href="@{/article/list}">我的主页</a>
+                </li>
+                <li class="dropdown pull-right">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown"><p th:if="${session.loginInfo==null}"><a th:href="@{/hello}">请登录</a></p><p th:if="${session.loginInfo}"><label th:text="${session.loginInfo.phone}"></label></p><strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li><p th:if="${session.loginInfo}">
+                            <a th:href="@{/admin/admin}" th:if="${session.loginInfo.role.id==1}">管理员页面</a>
+                        </p>
+                        </li>
+                        <li><p th:if="${session.loginInfo}">
+                            <a th:href="@{/quit}">退出登录</a>
+                        </p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <form th:action="@{/article/update}" method="post">
     <input type="hidden" name="id" th:value="${article.id}" id="id">
     <p th:text="${#dates.format(article.created, 'yyyy-MM-dd')}"></p>
 
-    <input type="text" th:value="${article.title}" name="title">
+    <textarea th:value="${article.title}" name="title"></textarea>
 <br>
 
 <textarea th:text="${article.content}" name="content"></textarea>

@@ -8,8 +8,8 @@
         <result column="created" property="created"/>
            <result property="title"  column="title"/>
            <result property="content" column="content"/>
-            <result property="lastReply" column="lastReply"/>
-         <result property="allReply" column="allReply"/>
+           <result property="lastReply" column="lastReply"/>
+           <result property="allReply" column="allReply"/>
         <association property="user" javaType="com.example.model.User">
               <id column="id" property="id"/>
               <result property="phone" column="phone"/>
@@ -22,7 +22,8 @@
       <select id="listArticle" resultMap="articleId">
           select a.articleId,a.title,a.content,a.created,u.phone,a.lastReply,a.allReply
                from article a,user u
-               order by a.lastReply,a.created
+               WHERE  a.userId=u.id
+               order by a.lastReply DESC ,a.created DESC
      </select>
     <insert id="addArticle" parameterType="com.example.model.Article">
         insert into article(title,content,created,userId) VALUES(#{title},#{content},now(),#{user.id})
@@ -31,22 +32,24 @@
         select *
         FROM  user u,article a
         WHERE  a.articleId=#{id}  AND  u.id=a.userId
-</select>
+    </select>
     <select id="getArticleById" resultMap="articleId" parameterType="int">
         select * from article where articleId=#{id}
     </select>
     <update id="edit" parameterType="com.example.model.Article">
         update article set title=#{title},content=#{content},created=#{created} where ArticleId=#{id}
-   </update>
+    </update>
     <delete id="delete" parameterType="int">
         delete from article where articleId=#{id}
     </delete>
     <select id="getListByid" resultMap="articleId" parameterType="int">
-        select * from article where articleId=#{id}
+        select *
+        from article
+        where userId=#{id}
     </select>
     <update id="updateComment" parameterType="int">
-update article SET allReply=(select allReply+1
-where articleId=#{id}),lastReply=now()
-WHERE  articleId=#{id};
+        update article SET allReply=(select allReply+1
+        where articleId=#{id}),lastReply=now()
+        WHERE  articleId=#{id};
     </update>
 </mapper>

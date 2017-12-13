@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.service.UserService;
 import com.example.utils.Md5;
 import com.example.model.User;
 import com.example.dao.UserMapper;
@@ -24,34 +25,43 @@ import java.util.Random;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
+
     @Autowired
     private UserTimeMapper userTimeMapper;
 
 
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
     @RequestMapping("/hello")
 public  String hello(){
 
         return  "register";
 }
 
-@RequestMapping("/sendNumber")
+    /**
+     * 发送验证码
+     * @param httpSession
+     * @param userTime 用户上次获取验证码的时间
+     * @return
+     */
+    @RequestMapping("/sendNumber")
 @ResponseBody
 public Map sendNumber(HttpSession httpSession,UserTime userTime){
     Map map=new HashMap<String,String>();
-    System.out.println(userTime.getPhone());
     UserTime userTime1=userTimeMapper.getTime(userTime);
     if(userTime1!=null) {
+        //判断用户距离上次获取验证码是否经过了60秒，如果不够60秒，返回错误信息
         if (new Date().getTime() - userTime1.getCodeTime().getTime() < 60000) {
             map.put("number", 3);
             return map;
         }
     }else{
+        //记录此次获取验证码的时间
         userTime.setCodeTime(new Date());
         userTimeMapper.insert(userTime);
     }
+    //随机产生4位的验证码
     map.put("number",null);
     Random random = new Random();
     String fourRandom = random.nextInt(10000) + "";
@@ -65,14 +75,19 @@ public Map sendNumber(HttpSession httpSession,UserTime userTime){
     System.out.println(userTime.getPhone());
     System.out.println(fourRandom);
     httpSession.setAttribute("number",fourRandom);
-    System.out.println(httpSession.getAttribute("number"));
-
     map.put("number",1);
  return map;
 
 }
 
-@RequestMapping("/checkNm")
+    /**
+     * 检查验证码
+     * @param number 用户输入的验证码
+     * @param session
+     * @param user 用户
+     * @return
+     */
+    @RequestMapping("/checkNm")
 @ResponseBody
 public Map checkNM(String number,HttpSession session,UserTime user){
     Map map=new HashMap<String,String>();
@@ -83,6 +98,7 @@ public Map checkNM(String number,HttpSession session,UserTime user){
         map.put("numbercode",3);
         return map;
     }}
+        //将验证码输入到前台
     System.out.println(number+"验证码"+session.getAttribute("number"));
     if(number.equals(session.getAttribute("number"))) {
 
@@ -93,20 +109,26 @@ public Map checkNM(String number,HttpSession session,UserTime user){
 
 }
 
-@RequestMapping("/register")
+    /**
+     * 注册
+     * @param user 用户
+     * @return
+     */
+    @RequestMapping("/register")
 @ResponseBody
 public Map ajax(User user){
     Map map=new HashMap<String,String>();
     map.put("status",null);
-    if(userMapper.findUserByName(user)!=null){
+    if(userService.findUserByName(user)!=null){
         map.put("status","3");
         return map;
     }
+    //对密码进行MD5加密
     String password= Md5.MD5(user.getPassword());
     Date date=new Date();
     user.setPassword(password);
     user.setLoginTime(date);
-    userMapper.insert(user);
+    userService.insert(user);
     map.put("status",1);
     return  map;
 }
@@ -116,7 +138,7 @@ public Map ajax(User user){
     public Map login(User user){
         Map map=new HashMap<String,String>();
     map.put("code",null);
-    if(userMapper.findUserByName(user)!=null){
+    if(userService.findUserByName(user)!=null){
     map.put("code",1);
 }
 return map;

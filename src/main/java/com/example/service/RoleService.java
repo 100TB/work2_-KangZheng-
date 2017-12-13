@@ -11,4 +11,5 @@ public interface RoleService {
     public List<Role> listRole();
     public void addRole(Role role);
     public Role getRoleById(int  id);
+    public Role getRole(int id);
 }

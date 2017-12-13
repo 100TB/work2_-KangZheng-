@@ -47,11 +47,6 @@ Map map=new HashMap<String,String>();
     @RequestMapping(value="/login1")
     @ResponseBody
     public String  insert(@Valid User user, Model model, BindingResult result) {
-
-
-       if(result.hasErrors()){
-           System.out.println( "出错了");
-       }
         user.setPassword(Md5.MD5(user.getPassword()));
         userMapper.insert(user);
          return "login";

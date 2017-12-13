@@ -1,14 +1,15 @@
 package com.example.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Kang.Zheng on 2017/12/11.
  */
 public class Role implements Serializable{
     private int id;
-    private List<Privilege> privilege;
+    private List<Privilege> privilege=new ArrayList<>();
+
     private String roleName;
     private List<User> users;
 
@@ -43,4 +44,5 @@ public class Role implements Serializable{
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
 }

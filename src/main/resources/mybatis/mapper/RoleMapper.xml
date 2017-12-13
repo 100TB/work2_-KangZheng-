@@ -11,13 +11,13 @@
         </collection>
 
     </resultMap>
-    <select id="listRole" resultType="com.example.model.Role">
+    <select id="listRole" resultMap="roleId">
         select * from role
     </select>
     <select id="getRoleById" parameterType="int" resultMap="roleId">
         select r.roleId,r.roleName,p.id,p.privilege
         from role r,privileges p,role_privilege rp
-        WHERE  r.roleId=rp.RoleId AND  rp.privilegeId=p.id and r.roleId=#{id}
+        WHERE  r.roleId=rp.roleId AND  rp.privilegeId=p.id and r.roleId=#{id}
     </select>
     <insert id="addRole" parameterType="com.example.model.Role" useGeneratedKeys="true" keyProperty="id">
         INSERT into role(roleName) values(#{roleName})
@@ -25,4 +25,9 @@
     <insert id="updatePeivilege" parameterType="map">
        insert into role_privilege(roleId,privilegeId) values(#{roleId},#{privilegeId})
     </insert>
+    <select id="getRole" resultMap="roleId" parameterType="int">
+        select r.roleId,r.roleName
+        from role r,user u
+        WHERE  r.roleId=u.roleId AND  u.id=#{id}
+    </select>
     </mapper>

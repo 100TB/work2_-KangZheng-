@@ -43,4 +43,9 @@ public class RoleServiceImpl implements RoleService {
     public Role getRoleById(int id) {
         return  roleMapper.getRoleById(id);
     }
+
+    @Override
+    public Role getRole(int id) {
+        return roleMapper.getRole(id);
+    }
 }

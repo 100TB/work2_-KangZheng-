@@ -12,10 +12,10 @@ public interface ArticleService {
     public List<Article> listArticle();
     public  Article  getArticleAndComments(int id);
     public Article  getArticle(int id);
-    Article getArticleById(Article article);
-    List<Article> getListByid(int id);
-    void edit(Article article);
-    void delete(int id);
-    void updateComment(int id);
-    void addArticle(Article article);
+    public Article getArticleById(Article article);
+    public List<Article> getListByid(int id);
+    public void edit(Article article);
+    public void delete(int id);
+    public void updateComment(int id);
+    public void addArticle(Article article);
 }

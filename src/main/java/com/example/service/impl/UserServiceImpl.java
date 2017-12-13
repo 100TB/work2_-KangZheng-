@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kang.Zheng on 2017/12/12.
@@ -37,7 +38,14 @@ public class UserServiceImpl implements UserService {
     public List<User> listUser(){
         return  userMapper.listUser();
     }
+
+    @Override
+    public void editRole(Map map) {
+        userMapper.editRole(map);
+    }
+
     public User findUserById(User user){
         return userMapper.findUserById(user);
     }
+
 }
