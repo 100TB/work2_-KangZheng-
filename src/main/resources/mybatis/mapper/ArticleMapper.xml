@@ -5,25 +5,26 @@
 
     <resultMap id="articleId" type="com.example.model.Article">
      <result property="id" column="articleId"/>
-        <result column="created" property="created"/>
+           <result column="created" property="created"/>
            <result property="title"  column="title"/>
            <result property="content" column="content"/>
            <result property="lastReply" column="lastReply"/>
            <result property="allReply" column="allReply"/>
-        <association property="user" javaType="com.example.model.User">
+           <association property="user" javaType="com.example.model.User">
               <id column="id" property="id"/>
               <result property="phone" column="phone"/>
-        </association>
-        <collection property="comments" ofType="com.example.model.Comment" column="articleId">
+           </association>
+           <collection property="comments" ofType="com.example.model.Comment" column="articleId">
             <id property="commentId" column="commentId" jdbcType="INTEGER" javaType="int"/>
             <result property="content" column="content" jdbcType="VARCHAR" javaType="string"/>
-        </collection>
+           </collection>
     </resultMap>
-      <select id="listArticle" resultMap="articleId">
+    <select id="listArticle" resultMap="articleId">
           select a.articleId,a.title,a.content,a.created,u.phone,a.lastReply,a.allReply
                from article a,user u
                WHERE  a.userId=u.id
                order by a.lastReply DESC ,a.created DESC
+
      </select>
     <insert id="addArticle" parameterType="com.example.model.Article">
         insert into article(title,content,created,userId) VALUES(#{title},#{content},now(),#{user.id})

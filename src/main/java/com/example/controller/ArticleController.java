@@ -141,9 +141,8 @@ import java.util.List;
     public String addArticle(Article article){
       logger.info(""+article.getUser().getId());
         articleService.addArticle(article);
-        return "addArticle";
+        return "forward:/article/list";
     }
-
     }
 
 

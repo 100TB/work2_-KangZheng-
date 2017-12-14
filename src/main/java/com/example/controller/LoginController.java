@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 //@RequestMapping("/login")
 public class LoginController {
-    private  long useTime=86400000;//一天二十四小时
+    private  long USE_TIME=86400000;//一天二十四小时
     @Autowired
     private UserService userService;
     @Autowired
@@ -71,7 +71,7 @@ public class LoginController {
     @RequestMapping("/login")
     public  String  login(User user, Model model, HttpServletRequest request){
 
-        User user1=userService.findUserByName(user);
+        User user1=userService.findUserByPhone(user);
         Date date=new Date();
      //如果手机号输入错误，在前端显示错误信息
         if(user1==null){
@@ -81,7 +81,7 @@ public class LoginController {
         //userMapper.updateLoginTime(user1);
         //如果用户连续输错三次密码，24小时内禁止登陆
         if(user1.getWorryLogin()>=3){
-            if((new Date().getTime()-user1.getLoginTime().getTime())>1000*60*60*24) {
+            if((new Date().getTime()-user1.getLoginTime().getTime())>USE_TIME) {
                 user1.setWorryLogin(0);
             }else {
                 model.addAttribute("msg", "今日禁止登陆");
@@ -96,8 +96,10 @@ public class LoginController {
             Role r=roleService.getRole(user1.getId());
             user1.setRole(r);
             Role role=roleService.getRoleById(r.getId());
+            request.getSession().removeAttribute("edit");
+            request.getSession().removeAttribute("delete");
             if(role!=null) {
-                //如果登陆成功，查询出用户的权限并放到session中
+                //如果登陆成功，删除session已经存在的权限，查询出用户的权限并放到session中
                 for (Privilege p : role.getPrivilege()) {
                     if ("edit".equals(p.getPrivilege())){
                         request.getSession().setAttribute("edit",1);

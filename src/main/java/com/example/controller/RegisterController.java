@@ -25,17 +25,12 @@ import java.util.Random;
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
-
     @Autowired
     private UserTimeMapper userTimeMapper;
-
-
-
     @Autowired
     private UserService userService;
     @RequestMapping("/hello")
 public  String hello(){
-
         return  "register";
 }
 
@@ -72,7 +67,6 @@ public Map sendNumber(HttpSession httpSession,UserTime userTime){
     }
    userTime.setCodeTime(new Date());
     userTimeMapper.update(userTime);
-    System.out.println(userTime.getPhone());
     System.out.println(fourRandom);
     httpSession.setAttribute("number",fourRandom);
     map.put("number",1);
@@ -119,7 +113,7 @@ public Map checkNM(String number,HttpSession session,UserTime user){
 public Map ajax(User user){
     Map map=new HashMap<String,String>();
     map.put("status",null);
-    if(userService.findUserByName(user)!=null){
+    if(userService.findUserByPhone(user)!=null){
         map.put("status","3");
         return map;
     }
@@ -138,7 +132,7 @@ public Map ajax(User user){
     public Map login(User user){
         Map map=new HashMap<String,String>();
     map.put("code",null);
-    if(userService.findUserByName(user)!=null){
+    if(userService.findUserByPhone(user)!=null){
     map.put("code",1);
 }
 return map;

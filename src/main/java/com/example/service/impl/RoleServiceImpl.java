@@ -30,12 +30,14 @@ public class RoleServiceImpl implements RoleService {
     public void addRole(Role role) {
         roleMapper.addRole(role);
         int id=role.getId();
-        for (Privilege p:role.getPrivilege()
-             ) {
-            Map map=new HashMap<String,Integer>();
-            map.put("roleId",id);
-            map.put("privilegeId",p.getId());
-            roleMapper.updatePeivilege(map);
+        if(role.getPrivilege()!=null) {
+            for (Privilege p : role.getPrivilege()
+                    ) {
+                Map map = new HashMap<String, Integer>();
+                map.put("roleId", id);
+                map.put("privilegeId", p.getId());
+                roleMapper.updatePeivilege(map);
+            }
         }
     }
 

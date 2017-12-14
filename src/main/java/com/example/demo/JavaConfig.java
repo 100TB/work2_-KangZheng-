@@ -35,13 +35,8 @@ public class JavaConfig {
 
     @Autowired
     private UserMapper userMapper;
-Map map=new HashMap<String,String>();
+    Map map=new HashMap<String,String>();
 
-    @RequestMapping(value="/hello")
-    public String hello(){
-
-        return "hello";
-    }
 
 
     @RequestMapping(value="/login1")
@@ -49,11 +44,6 @@ Map map=new HashMap<String,String>();
     public String  insert(@Valid User user, Model model, BindingResult result) {
         user.setPassword(Md5.MD5(user.getPassword()));
         userMapper.insert(user);
-         return "login";
-    }
-    @RequestMapping(value="ajax")
-    @ResponseBody
-    public String  ajax(String username) {
         return "login";
     }
 

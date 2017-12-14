@@ -94,11 +94,12 @@ public class AdminController {
     public String addRoleRole(int[] privilege,String roleName){
         Role role=new Role();
         role.setRoleName(roleName);
+        if(privilege!=null){
          for(int i:privilege){
              Privilege p=new Privilege();
              p.setId(i);
              role.getPrivilege().add(p);
-         }
+         }}
         roleService.addRole(role);
         return  "forward:/admin/admin";
     }

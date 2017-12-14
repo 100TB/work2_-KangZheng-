@@ -24,6 +24,9 @@
                 <li  class="active">
                     <a th:href="@{/article/list}">我的主页</a>
                 </li>
+                <li>
+                    <a th:href="@{/admin/admin}" th:if="${session.loginInfo.role.id==1}">管理员页面</a>
+                </li>
                 <li class="dropdown pull-right">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown"><p th:if="${session.loginInfo==null}"><a th:href="@{/hello}">请登录</a></p><p th:if="${session.loginInfo}"><label th:text="${session.loginInfo.phone}"></label></p><strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
@@ -75,6 +78,5 @@
 </div>
 
 <a class="btn" th:href="@{/article/add}">新建</a>
-
 </body>
 </html>

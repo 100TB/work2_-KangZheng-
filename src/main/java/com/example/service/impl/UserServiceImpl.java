@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    public User findUserByName(User user){
-        return userMapper.findUserByName(user);
+    public User findUserByPhone(User user){
+        return userMapper.findUserByPhone(user);
     }
     public  void  insert(User user){
         userMapper.insert(user);

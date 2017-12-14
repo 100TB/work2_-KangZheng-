@@ -17,8 +17,8 @@ public interface ArticleMapper {
     public Article  getArticle(int id);
     public Article getArticleById(Article article);
     public List<Article> getListByid(int id);
-   public  void edit(Article article);
+    public void edit(Article article);
     public void delete(int id);
-   public void  updateComment(int id);
+    public void  updateComment(int id);
     public void addArticle(Article article);
 }

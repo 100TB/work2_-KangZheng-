@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 public interface UserMapper {
 
-    public User findUserByName(User user);
+    public User findUserByPhone(User user);
     public User findUserById(User user);
     public  void  insert(User user);
     public void updateUser(User user);

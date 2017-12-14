@@ -17,6 +17,6 @@ public interface UserTimeMapper {
 
    public void insert(UserTime userTime);
    public void update(UserTime userTime);
-    public UserTime getTime(UserTime userTime);
+   public UserTime getTime(UserTime userTime);
 
 }

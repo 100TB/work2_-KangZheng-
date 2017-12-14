@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by Kang.Zheng on 2017/12/12.
  */
 public interface UserService {
-    public User findUserByName(User user);
+    public User findUserByPhone(User user);
     public User findUserById(User user);
     public  void  insert(User user);
     public void updateUser(User user);
