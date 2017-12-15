@@ -7,9 +7,9 @@ import java.util.Date;
  */
 public class UserTime {
 
-    private int id;
-    private String phone;
-    private Date codeTime;
+    private int id;//主键
+    private String phone;//用户的手机号
+    private Date codeTime;//用户获得验证码的时间
 
     public int getId() {
         return id;

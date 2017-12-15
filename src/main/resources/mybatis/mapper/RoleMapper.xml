@@ -4,7 +4,7 @@
 <mapper namespace="com.example.dao.RoleMapper">
     <resultMap id="roleId" type="com.example.model.Role">
         <result column="roleId" property="id"/>
-        <result  property="roleName" column="roleName"/>
+        <result property="roleName" column="roleName"/>
         <collection property="privilege" ofType="com.example.model.Privilege" column="roleId">
             <id column="id" property="id"/>
             <result property="privilege" column="privilege"/>
@@ -30,4 +30,4 @@
         from role r,user u
         WHERE  r.roleId=u.roleId AND  u.id=#{id}
     </select>
-    </mapper>
+</mapper>

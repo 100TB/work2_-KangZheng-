@@ -26,10 +26,16 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.listRole();
     }
 
+    /**
+     * 增加角色
+     * @param role 角色实体
+     */
     @Override
     public void addRole(Role role) {
+        //保存角色
         roleMapper.addRole(role);
         int id=role.getId();
+        //查询角色是否拥有权限，若有权限，保存权限
         if(role.getPrivilege()!=null) {
             for (Privilege p : role.getPrivilege()
                     ) {
@@ -41,11 +47,21 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
+    /**
+     * 根据id获取角色，并且获取角色的权限
+     * @param id 角色id
+     * @return
+     */
     @Override
     public Role getRoleById(int id) {
         return  roleMapper.getRoleById(id);
     }
 
+    /**
+     *  根据用户的id获取角色
+     * @param id 用户id
+     * @return
+     */
     @Override
     public Role getRole(int id) {
         return roleMapper.getRole(id);

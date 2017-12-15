@@ -18,7 +18,7 @@
                 <li  class="active">
                     <a th:href="@{/article/list}">浏览文章</a>
                 </li>
-                <li>
+                <li th:if="${session.loginInfo}">
                     <a th:href="@{/admin/admin}" th:if="${session.loginInfo.role.id==1}">管理员页面</a>
                 </li>
                 <li class="dropdown pull-right">

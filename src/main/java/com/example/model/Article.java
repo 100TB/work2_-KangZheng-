@@ -7,14 +7,14 @@ import java.util.List;
  * Created by Kang.Zheng on 2017/12/11.
  */
 public class Article {
-    private int id;
-    private String title;
-    private String content;
-    private Date created;
-    private User user;
-    private Date lastReply;
-    private int allReply;
-    private List<Comment> comments;
+    private int id;//主键
+    private String title;//文章标题
+    private String content;//内容
+    private Date created;//发表时间
+    private User user;//发表用户
+    private Date lastReply;//最后回复时间
+    private int allReply;//全部评论数
+    private List<Comment> comments;//评论
 
     public int getId() {
         return id;

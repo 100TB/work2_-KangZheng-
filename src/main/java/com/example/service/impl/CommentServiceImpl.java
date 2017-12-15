@@ -16,11 +16,20 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public List<Comment> listComment(int id) {
         return commentMapper.listComment(id);
     }
 
+    /**
+     * 增加评论
+     * @param comment
+     */
     @Override
     public void addComment(Comment comment) {
         commentMapper.insert(comment);

@@ -7,11 +7,11 @@ import java.util.*;
  * Created by Kang.Zheng on 2017/12/11.
  */
 public class Role implements Serializable{
-    private int id;
-    private List<Privilege> privilege=new ArrayList<>();
+    private int id;//主键
+    private List<Privilege> privilege=new ArrayList<>();//角色拥有的权限
 
-    private String roleName;
-    private List<User> users;
+    private String roleName;//角色名称
+    private List<User> users;//角色对应得用户
 
     public int getId() {
         return id;

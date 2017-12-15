@@ -8,15 +8,14 @@ import java.util.List;
  * Created by Kang.Zheng on 2017/12/11.
  */
 public class User implements Serializable {
-    private  int id;
-    private String  phone;
-    private String password;
-    private int worryLogin;
-    private Date codeTime;
-    private Date loginTime;
-    private List<Article> articles;
-    private List<String> privileges;
-    private  Role role;
+    private  int id;//主键id
+    private String  phone;//用户手机号
+    private String password;//用户密码
+    private int worryLogin;//登陆错误的次数
+    private Date loginTime;//登陆的时间
+    private List<Article> articles;//发表过的文章
+    private List<String> privileges;//权限
+    private  Role role;//对应的角色
 
     public int getId() {
         return id;
@@ -74,13 +73,6 @@ public class User implements Serializable {
         this.worryLogin = worryLogin;
     }
 
-    public Date getCodeTime() {
-        return codeTime;
-    }
-
-    public void setCodeTime(Date codeTime) {
-        this.codeTime = codeTime;
-    }
 
     public Date getLoginTime() {
         return loginTime;

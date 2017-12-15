@@ -5,8 +5,8 @@ package com.example.model;
  */
 public class Privilege{
 
-    private int id;
-    private String privilege;
+    private int id;//主键
+    private String privilege;//权限名称
 
     public int getId() {
         return id;

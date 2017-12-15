@@ -8,7 +8,7 @@
     <update id="update" parameterType="com.example.model.UserTime">
         update userTime set codeTime=#{codeTime} where phone=#{phone}
     </update>
-   <select id="getTime" parameterType="com.example.model.UserTime" resultType="com.example.model.UserTime">
+    <select id="getTime" parameterType="com.example.model.UserTime" resultType="com.example.model.UserTime">
        select * from userTime where phone=#{phone}
 
    </select>

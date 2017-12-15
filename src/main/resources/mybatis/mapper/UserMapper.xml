@@ -11,10 +11,10 @@
         </association>
 
     </resultMap>
-    <select id="findUserById" resultType="com.example.model.User" parameterType="com.example.model.User" >
+    <select id="findUserById" resultType="com.example.model.User" parameterType="com.example.model.User">
              select * from user where id=#{id}
      </select>
-    <select id="findUserByPhone" resultType="com.example.model.User" parameterType="com.example.model.User" >
+    <select id="findUserByPhone" resultType="com.example.model.User" parameterType="com.example.model.User">
 
          select *
                   from  user
@@ -23,13 +23,10 @@
     <update id="updateUser" parameterType="com.example.model.User">
         update user set worryLogin=#{worryLogin},loginTime=#{loginTime} where id=#{id}
     </update>
-    <update id="updateLogin" >
-        update user set worryLogin=0
-    </update>
     <insert id="insert" parameterType="com.example.model.User">
         insert into user(phone,password,loginTime) values(#{phone},#{password},#{loginTime})
     </insert>
-    <update id="updateTime"  parameterType="com.example.model.User">
+    <update id="updateTime" parameterType="com.example.model.User">
         update user set codeTime=#{codeTime} where phone=#{phone}
     </update>
     <select id="listUser" resultMap="userId">
@@ -37,7 +34,7 @@
         from user u,role r
         WHERE u.roleId=r.roleId
     </select>
-    <update id="editRole"  parameterType="map">
+    <update id="editRole" parameterType="map">
         update user set roleId=#{roleId} WHERE id=#{userId}
     </update>
 </mapper>

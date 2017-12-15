@@ -13,12 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @MapperScan("com.example.dao")
 @ComponentScan("com.example")
 @Configuration
-public class MyWebAppConfigure  extends WebMvcConfigurerAdapter{
+public class MyWebAppConfigure extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/admin");
+        //注册拦截器，拦截通完管理员页面的请求
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/*");
         super.addInterceptors(registry);
     }
 }

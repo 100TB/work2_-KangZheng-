@@ -6,7 +6,7 @@
         <result column="commentId" property="id"/>
         <result property="content" column="content"/>
         <result property="created" column="created"/>
-        <association property="user"  javaType="com.example.model.User">
+        <association property="user" javaType="com.example.model.User">
             <id column="id" property="id"/>
             <result property="phone" column="phone"/>
         </association>

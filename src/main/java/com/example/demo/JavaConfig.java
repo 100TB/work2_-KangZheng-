@@ -35,66 +35,51 @@ public class JavaConfig {
 
     @Autowired
     private UserMapper userMapper;
-    Map map=new HashMap<String,String>();
-
-
-
-    @RequestMapping(value="/login1")
-    @ResponseBody
-    public String  insert(@Valid User user, Model model, BindingResult result) {
-        user.setPassword(Md5.MD5(user.getPassword()));
-        userMapper.insert(user);
-        return "login";
-    }
+    Map map = new HashMap<String, String>();
 
     @RequestMapping("/defaultKaptcha")
     public void defaultKaptcha(HttpServletRequest httpServletRequest, HttpServletResponse
-            httpServletResponse) throws Exception{
-      byte[] captchaChallengeAsJpeg = null;
-           ByteArrayOutputStream
-                   jpegOutputStream = new ByteArrayOutputStream();
-              try {
-             //生产验证码字符串并保存到session中
-                 String createText = defaultKaptcha.createText();
+            httpServletResponse) throws Exception {
+        byte[] captchaChallengeAsJpeg = null;
+        ByteArrayOutputStream
+                jpegOutputStream = new ByteArrayOutputStream();
+        try {
+            //生产验证码字符串并保存到session中
+            String createText = defaultKaptcha.createText();
             httpServletRequest.getSession().setAttribute("vrifyCode", createText);
-                  //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
-                BufferedImage challenge = defaultKaptcha.createImage(createText);
-             ImageIO.write(challenge, "jpg", jpegOutputStream);
-                    } catch (IllegalArgumentException e) {
-                       httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
-                     return;
-                 }
-
-                //定义response输出类型为image/jpeg类型，使用response输出流输出图片的byte数组
-             captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
-               httpServletResponse.setHeader("Cache-Control", "no-store");
-               httpServletResponse.setHeader("Pragma", "no-cache");
-                   httpServletResponse.setDateHeader("Expires", 0);
-                httpServletResponse.setContentType("image/jpeg");
-             ServletOutputStream responseOutputStream =
-                            httpServletResponse.getOutputStream();
-            responseOutputStream.write(captchaChallengeAsJpeg);
-            responseOutputStream.flush();
-                responseOutputStream.close();
+            //使用生产的验证码字符串返回一个BufferedImage对象并转为byte写入到byte数组中
+            BufferedImage challenge = defaultKaptcha.createImage(createText);
+            ImageIO.write(challenge, "jpg", jpegOutputStream);
+        } catch (IllegalArgumentException e) {
+            httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
         }
+
+        //定义response输出类型为image/jpeg类型，使用response输出流输出图片的byte数组
+        captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
+        httpServletResponse.setHeader("Cache-Control", "no-store");
+        httpServletResponse.setHeader("Pragma", "no-cache");
+        httpServletResponse.setDateHeader("Expires", 0);
+        httpServletResponse.setContentType("image/jpeg");
+        ServletOutputStream responseOutputStream =
+                httpServletResponse.getOutputStream();
+        responseOutputStream.write(captchaChallengeAsJpeg);
+        responseOutputStream.flush();
+        responseOutputStream.close();
+    }
+
     @RequestMapping("/imgvrifyControllerDefaultKaptcha")
     @ResponseBody
-public Map imgvrifyControllerDefaultKaptcha(String yanzhengma, HttpSession session){
-        map.put("info",null);
-           String captchaId = (String) session.getAttribute("vrifyCode");
-
-       System.out.println("Session  vrifyCode "+captchaId+" form vrifyCode "+yanzhengma);
-
-    if (captchaId.equals(yanzhengma)) {
+    public Map imgvrifyControllerDefaultKaptcha(String yanzhengma, HttpSession session) {
+        map.put("info", null);
+        String captchaId = (String) session.getAttribute("vrifyCode");
+        if (captchaId.equals(yanzhengma)) {
             map.put("info", 1);
-
-           } else {
-               map.put("info", 0);
-
-
+        } else {
+            map.put("info", 0);
         }
-      return map;
-   }
+        return map;
+    }
 
 
 }

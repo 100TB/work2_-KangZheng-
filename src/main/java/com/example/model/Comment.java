@@ -6,11 +6,11 @@ import java.util.Date;
  * Created by Kang.Zheng on 2017/12/11.
  */
 public class Comment {
-    private int id;
-    private String content;
-    private Date created;
-    private User user;
-    private Article article;
+    private int id;//主键
+    private String content;//评论内容
+    private Date created;//评论时间
+    private User user;//发表评论的用户
+    private Article article;//评论的文章
 
     public int getId() {
         return id;
